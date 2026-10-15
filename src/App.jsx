@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 
 /* ═══════════════════════════════════════════
    GLOBAL STYLES (injected once)
@@ -349,7 +349,9 @@ function Home() {
         <div className="prod-grid">
           {PRODUCTS.slice(0, 3).map(p => (
             <Link to={`/product/${p.id}`} key={p.id} className="prod-card">
-              <div className="prod-img" style={{ background: p.bg }}>{p.emoji}</div>
+              <div className="prod-img">
+                <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
               <div className="prod-body">
                 <div className="prod-tag">{p.tag}</div>
                 <div className="prod-name">{p.name}</div>
@@ -374,15 +376,15 @@ function Home() {
    PRODUCTS DATA
 ═══════════════════════════════════════════ */
 const PRODUCTS = [
-  { id: 1, name: 'Pro Mechanical Keyboard', emoji: '⌨️', price: 12500, tag: 'BEST SELLER', desc: 'RGB mechanical keyboard with Cherry MX switches. 100% anti-ghosting.',  bg: 'linear-gradient(135deg,#1a0a20,#0d0d1a)', cat: 'peripherals' },
-  { id: 2, name: 'Gaming Mouse X900', emoji: '🖱️', price: 8900,  tag: 'TOP RATED', desc: '16000 DPI optical sensor. Programmable 8 buttons. Ergonomic design.',   bg: 'linear-gradient(135deg,#1a0a0a,#0d0a0a)', cat: 'peripherals' },
-  { id: 3, name: 'UltraWide 4K Monitor', emoji: '🖥️', price: 89000, tag: 'PREMIUM', desc: '34" ultrawide 4K IPS. 144Hz refresh. HDR 600 support.',               bg: 'linear-gradient(135deg,#0a1020,#050a14)', cat: 'displays' },
-  { id: 4, name: 'Dev Laptop Stand', emoji: '💻', price: 3500,  tag: 'POPULAR', desc: 'Aluminum laptop stand. Adjustable height. MacBook & PC compatible.',      bg: 'linear-gradient(135deg,#101510,#080d08)', cat: 'accessories' },
-  { id: 5, name: 'USB-C Hub Pro', emoji: '🔌', price: 5200,   tag: 'NEW ARRIVAL', desc: '12-in-1 USB-C dock with HDMI, 4K@60Hz, 100W PD charging.',               bg: 'linear-gradient(135deg,#15100a,#0d0805)', cat: 'accessories' },
-  { id: 6, name: 'Noise Cancelling Headset', emoji: '🎧', price: 22000, tag: "EDITOR'S PICK", desc: 'Active noise cancellation. 30hr battery. Crystal clear mic.',  bg: 'linear-gradient(135deg,#0a0a1a,#050510)', cat: 'audio' },
-  { id: 7, name: 'Portable SSD 1TB', emoji: '💾', price: 15000, tag: 'FAST DELIVERY', desc: 'NVMe portable SSD. 1050 MB/s read speed. USB 3.2 Gen 2.',             bg: 'linear-gradient(135deg,#0a1510,#050d08)', cat: 'storage' },
-  { id: 8, name: 'Webcam 4K Ultra', emoji: '📷', price: 18000, tag: 'WORK FROM HOME', desc: '4K 30fps webcam. Auto light correction. Ring fill light included.',    bg: 'linear-gradient(135deg,#150a10,#0d0508)', cat: 'peripherals' },
-  { id: 9, name: 'Desk LED Light Bar', emoji: '💡', price: 2800, tag: 'POPULAR', desc: 'Smart LED monitor light bar. USB powered. No screen glare.',               bg: 'linear-gradient(135deg,#15150a,#0d0d05)', cat: 'accessories' },
+  { id: 1, name: 'Pro Mechanical Keyboard', image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80', price: 12500, tag: 'BEST SELLER', desc: 'RGB mechanical keyboard with Cherry MX switches. 100% anti-ghosting.', cat: 'peripherals' },
+  { id: 2, name: 'Gaming Mouse X900', image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80', price: 8900, tag: 'TOP RATED', desc: '16000 DPI optical sensor. Programmable 8 buttons. Ergonomic design.', cat: 'peripherals' },
+  { id: 3, name: 'UltraWide 4K Monitor', image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80', price: 89000, tag: 'PREMIUM', desc: '34" ultrawide 4K IPS. 144Hz refresh. HDR 600 support.', cat: 'displays' },
+  { id: 4, name: 'Dev Laptop Stand', image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80', price: 3500, tag: 'POPULAR', desc: 'Aluminum laptop stand. Adjustable height. MacBook & PC compatible.', cat: 'accessories' },
+  { id: 5, name: 'USB-C Hub Pro', image: 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=600&q=80', price: 5200, tag: 'NEW ARRIVAL', desc: '12-in-1 USB-C dock with HDMI, 4K@60Hz, 100W PD charging.', cat: 'accessories' },
+  { id: 6, name: 'Noise Cancelling Headset', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80', price: 22000, tag: "EDITOR'S PICK", desc: 'Active noise cancellation. 30hr battery. Crystal clear mic.', cat: 'audio' },
+  { id: 7, name: 'Portable SSD 1TB', image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80', price: 15000, tag: 'FAST DELIVERY', desc: 'NVMe portable SSD. 1050 MB/s read speed. USB 3.2 Gen 2.', cat: 'storage' },
+  { id: 8, name: 'Webcam 4K Ultra', image: 'https://images.unsplash.com/photo-1588702547919-26089e690ecc?auto=format&fit=crop&w=600&q=80', price: 18000, tag: 'WORK FROM HOME', desc: '4K 30fps webcam. Auto light correction. Ring fill light included.', cat: 'peripherals' },
+  { id: 9, name: 'Desk LED Light Bar', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80', price: 2800, tag: 'POPULAR', desc: 'Smart LED monitor light bar. USB powered. No screen glare.', cat: 'accessories' },
 ];
 
 /* ═══════════════════════════════════════════
@@ -427,7 +429,9 @@ function Shop({ onAddToCart }) {
         <div className="prod-grid">
           {filtered.map(p => (
             <Link to={`/product/${p.id}`} key={p.id} className="prod-card">
-              <div className="prod-img" style={{ background: p.bg }}>{p.emoji}</div>
+              <div className="prod-img">
+                <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
               <div className="prod-body">
                 <div className="prod-tag">{p.tag}</div>
                 <div className="prod-name">{p.name}</div>
@@ -466,9 +470,8 @@ function ProductDetail({ onAddToCart }) {
       <section className="section" style={{ paddingTop: 120 }}>
         <Link to="/shop" style={{ color: '#8a8f9e', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 40, fontWeight: 600 }}>← Back to Shop</Link>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
-          <div className="about-visual" style={{ fontSize: 120 }}>
-            <div style={{ position: 'absolute', width: 300, height: 300, background: '#ff2a4b', borderRadius: '50%', filter: 'blur(90px)', opacity: .09 }} />
-            <span style={{ position: 'relative', zIndex: 1 }}>{p.emoji}</span>
+          <div className="about-visual" style={{ padding: 0, overflow: 'hidden', height: 380 }}>
+            <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 20 }} />
           </div>
           <div>
             <div className="prod-tag">{p.tag}</div>
@@ -642,6 +645,7 @@ export default function App() {
         <Route path="/shop" element={<Shop onAddToCart={addToCart} />} />
         <Route path="/product/:id" element={<ProductDetail onAddToCart={addToCart} />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
     </Router>
